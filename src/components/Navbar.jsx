@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { useStateContext } from '../context'
 import { CustumoButtom } from '.'
 import { logo, menu, search, thirdweb } from '../assets'
 
@@ -10,8 +11,8 @@ const Navbar = () => {
   const navigate = useNavigate()
   const [isActive, setIsActive] = useState('dashboard')
   const [toggleDrawer, setToggleDrawer] = useState(false)
+  const { connect, address } = useStateContext()
 
-  const address = '0xabc'
   return (
     <div
       className="flex md:flex-row flex-col-reverse
@@ -38,7 +39,7 @@ const Navbar = () => {
           styles={address ? 'bg-[#1dc071]' : 'bg-[#8c6dfd]'}
           handleClick={() => {
             if (address) navigate('create-campaign')
-            else 'connect()'
+            else connect()
           }}
         />
         <Link to="/profile">
@@ -61,7 +62,7 @@ const Navbar = () => {
           bg-[#2c2f32] flex justify-center items-center cursor-pointer"
         >
           <img
-            src={thirdweb}
+            src={logo}
             alt="user"
             className="w-[60%] h-[60%] object-contain"
           />
@@ -121,7 +122,7 @@ const Navbar = () => {
               styles={address ? 'bg-[#1dc071]' : 'bg-[#8c6dfd]'}
               handleClick={() => {
                 if (address) navigate('create-campaign')
-                else 'connect()'
+                else connect()
               }}
             />
           </div>
