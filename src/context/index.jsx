@@ -48,7 +48,7 @@ export const StateContextProvider = ({ children }) => {
         campaign.amountCollected.toString()
       ),
       image: campaign.image,
-      pID: i
+      pId: i
     }))
 
     return parsedCampaings
@@ -64,16 +64,16 @@ export const StateContextProvider = ({ children }) => {
     return filteredCampaigns
   }
 
-  const donate = async (pID, amount) => {
-    const data = contract.call('donateToCampaign', pID, {
+  const donate = async (pId, amount) => {
+    const data = contract.call('donateToCampaign', pId, {
       value: ethers.utils.parseEther(amount)
     })
 
     return data
   }
 
-  const getDonations = async pID => {
-    const donations = await contract.call('getDonators', pID)
+  const getDonations = async (pId, i) => {
+    const donations = await contract.call('getDonators', pId)
     const numberOfDonations = donations[0].length
 
     const parsedDonatiopns = []
@@ -81,7 +81,7 @@ export const StateContextProvider = ({ children }) => {
     for (let i = 0; i < numberOfDonations; i++) {
       parsedDonatiopns.push({
         donator: donations[0][i],
-        donation: ethers.utils.formatEther(donations[1][i].toString)
+        donation: ethers.utils.formatEther(donations[1][i].toString())
       })
     }
     return parsedDonatiopns
